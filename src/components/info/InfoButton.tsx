@@ -1,5 +1,4 @@
 import { selectUser } from "@/redux/slices/userSlice";
-import { selectCurrentWord } from "@/redux/slices/wordsSlice";
 import { useAppSelector } from "@/redux/store";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { IconButton } from "@mui/material";
