@@ -1,0 +1,61 @@
+@import '@/assets/main.scss'; 
+
+.wordCard {
+    position: relative;
+    max-width: 350px;
+    width: 100%;
+    height: 80%;
+    margin: 0 auto;
+    user-select: none;
+    transition: 500ms;
+    @include media(600){
+      max-width: 300px;
+    }
+    @include media(500){
+      max-width: 250px;
+      height: 60%;
+    }
+    @include media(400){
+      max-width: 200px;
+    }
+    &_text {
+        overflow: hidden;
+        border-radius: 10px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        color: var(--blackTextColor);
+        background: var(--background);
+        font-size: 35px;
+        font: 700px;
+        border: 3px solid var(--baseColor);
+        @include media(600){
+          font-size: 30px;
+        }
+        @include media(500){
+          font-size: 25px;
+        }
+        @include media(400){
+          font-size: 22px;
+        }
+    }
+  }
+  
+  .wordCard > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(149, 10, 10, 0.537);
+    box-shadow: 0 0 15px var(--blackTextColor);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }

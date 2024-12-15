@@ -1,0 +1,16 @@
+.infoButton {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--baseColor);
+    box-shadow: 0 0 10px var(--blackTextColor);
+    background: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 30px;
+    &_icon {
+        color: var(--baseColorText);
+    }
+}
