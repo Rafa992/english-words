@@ -7,10 +7,8 @@ interface IInitialState {
   currentWord: IWords;
   learnedWords: IWords[];
   unlearnedWords: IWords[];
-  englishWord: string;
-  russianWord: string;
-  russianFullWord: string;
   increase: boolean;
+  showTranslation: boolean;
 }
 
 const initialState: IInitialState = {
@@ -18,10 +16,8 @@ const initialState: IInitialState = {
   currentWord: {} as IWords,
   learnedWords: [],
   unlearnedWords: [],
-  englishWord: '',
-  russianWord: '',
-  russianFullWord: '',
   increase: true,
+  showTranslation: false,
 };
 
 const wordsSlice = createSlice({
@@ -40,17 +36,11 @@ const wordsSlice = createSlice({
     setUnlearnedWords: (state, action: PayloadAction<IWords[]>) => {
       state.unlearnedWords = action.payload;
     },
-    setEnglishWord: (state, action: PayloadAction<string>) => {
-      state.englishWord = action.payload;
-    },
-    setRussianWord: (state, action: PayloadAction<string>) => {
-      state.russianWord = action.payload;
-    },
-    setRussianFullWord: (state, action: PayloadAction<string>) => {
-      state.russianFullWord = action.payload;
-    },
     setIncrease: (state, action: PayloadAction<boolean>) => {
       state.increase = action.payload;
+    },
+    setShowTranslation: (state, action: PayloadAction<boolean>) => {
+      state.showTranslation = action.payload;
     },
   },
 });
@@ -63,23 +53,17 @@ export const selectLearnedWords = (state: RootState): IWords[] =>
   state.wordsReducer.learnedWords;
 export const selectUnlearnedWords = (state: RootState): IWords[] =>
   state.wordsReducer.unlearnedWords;
-export const selectEnglishWord = (state: RootState): string =>
-  state.wordsReducer.englishWord;
-export const selectRussianWord = (state: RootState): string =>
-  state.wordsReducer.russianWord;
-export const selectRussianFullWord = (state: RootState): string =>
-  state.wordsReducer.russianFullWord;
 export const selectIncrease = (state: RootState): boolean =>
   state.wordsReducer.increase;
+export const selectShowTranslation = (state: RootState): boolean =>
+  state.wordsReducer.showTranslation;
 
 export const {
   setAllWords,
   setCurrentWord,
   setLearnedWords,
   setUnlearnedWords,
-  setEnglishWord,
-  setRussianWord,
-  setRussianFullWord,
-  setIncrease
+  setIncrease,
+  setShowTranslation
 } = wordsSlice.actions;
 export default wordsSlice.reducer;

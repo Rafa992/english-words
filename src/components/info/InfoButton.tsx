@@ -1,5 +1,5 @@
 import { selectUser } from "@/redux/slices/userSlice";
-import { setIncrease } from "@/redux/slices/wordsSlice";
+import { setIncrease, setShowTranslation, selectShowTranslation } from "@/redux/slices/wordsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { IconButton } from "@mui/material";
@@ -10,11 +10,14 @@ export default function InfoButton() {
     const dispatch = useAppDispatch();
 
   const user = useAppSelector(selectUser);
+  const showTranslation = useAppSelector(selectShowTranslation);
+
   const style =
     user.laterality === "right" ? { right: "30px" } : { left: "30px" };
 
     const handleClick = ()=> {
-        dispatch(setIncrease(false))
+        dispatch(setIncrease(false));
+        dispatch(setShowTranslation(!showTranslation));
     }
 
   return (

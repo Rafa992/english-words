@@ -1,13 +1,13 @@
 import TinderCard from "react-tinder-card";
 import {
   selectCurrentWord,
-  selectEnglishWord,
-  selectRussianFullWord,
-  selectRussianWord,
+  selectShowTranslation,
   selectUnlearnedWords,
+  setShowTranslation,
+  selectAllWords,
 } from "@/redux/slices/wordsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useRandomWord from "@/hooks/words/useRandomWord";
 import { selectUser } from "@/redux/slices/userSlice";
 import s from "./WordsItem.module.scss";
@@ -18,32 +18,29 @@ import { setIncrease } from "@/redux/slices/wordsSlice"
 interface IProps {
   updateCard: boolean;
   setUpdateCard: (v: boolean)=> void;
-
 }
 
 export default function WordsItem({updateCard, setUpdateCard}:IProps) {
 
   const dispatch = useAppDispatch();
   const { randomWord } = useRandomWord();
-  const unlearnedWords = useAppSelector(selectUnlearnedWords);
+  const showTranslation = useAppSelector(selectShowTranslation);
   const user = useAppSelector(selectUser);
+  const allWords = useAppSelector(selectAllWords);
   const {createColor} = useCreateColor();
 
   useEffect(() => {
-    dispatch(setIncrease(true))
    randomWord();
-  }, [unlearnedWords]);
+  }, [allWords]);
 
-  const englishWord = useAppSelector(selectEnglishWord);
-  const russianWord = useAppSelector(selectRussianWord);
-  const russianFullWord = useAppSelector(selectRussianFullWord);
   const currentWord = useAppSelector(selectCurrentWord);
 
   const {onSwipe} = useOnSwipe({updateCard, setUpdateCard});
 
-  
   useEffect(() => {
     dispatch(setIncrease(true))
+    dispatch(setIncrease(true))
+    dispatch(setShowTranslation(false))
   }, [currentWord]);
 
   const style = {
@@ -55,30 +52,75 @@ export default function WordsItem({updateCard, setUpdateCard}:IProps) {
     <div className={s.wordCard}>
       {user.version === "en-ru" && updateCard && (
         <TinderCard onSwipe={onSwipe} preventSwipe={["up", "down"]}>
-          <div style={style} className={s.wordCard_text}>
-            <p>{englishWord}</p>
-            <p>{currentWord.transcription}</p>
-          </div>
+          {
+            showTranslation ? (
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.ruFull}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+            ) : (
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.en}</p>
+                <p>{currentWord.transcription}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+            )
+          }
         </TinderCard>
       )}
       {user.version === "en-ru" && !updateCard && (
         <TinderCard onSwipe={onSwipe} preventSwipe={["up", "down"]}>
-          <div style={style} className={s.wordCard_text}>
-            <p>{englishWord}</p>
-            <p>{currentWord.transcription}</p>
-            <span>{currentWord.repetitions}</span>
-          </div>
+          {
+            showTranslation ? (
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.ruFull}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+            ) : (
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.en}</p>
+                <p>{currentWord.transcription}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+            )
+          }
         </TinderCard>
       )}
       {user.version === "ru-en" && updateCard && (
          <TinderCard onSwipe={onSwipe} preventSwipe={["up", "down"]}>
-           <div style={style} className={s.wordCard_text}>{russianFullWord}</div>
+           {
+            showTranslation ? (
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.en}</p>
+                <p>{currentWord.transcription}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+              ):(
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.ruFull}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+            )
+          }
        </TinderCard>
       )
       }
       {user.version === "ru-en" && !updateCard && (
          <TinderCard onSwipe={onSwipe} preventSwipe={["up", "down"]}>
-           <div style={style} className={s.wordCard_text}>{russianFullWord}</div>
+          {
+            showTranslation ? (
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.en}</p>
+                <p>{currentWord.transcription}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+              ):(
+              <div style={style} className={s.wordCard_text}>
+                <p>{currentWord.ruFull}</p>
+                <span>{currentWord.repetitions}</span>
+              </div>
+            )
+          }
        </TinderCard>
       )
       }
