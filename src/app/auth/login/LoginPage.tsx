@@ -34,10 +34,7 @@ const LoginPage = () => {
   const handleCloseSnackbar = () => dispatch(setErrorStatus(false));
 
   const handleSubmit = async (data: Login) => {
-    console.log(data);
-    
     try {
-
       const res = await login(data).unwrap();
       saveTokenStorage(res.accessToken, res.refreshToken);
       reset();

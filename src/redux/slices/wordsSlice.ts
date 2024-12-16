@@ -10,6 +10,7 @@ interface IInitialState {
   englishWord: string;
   russianWord: string;
   russianFullWord: string;
+  increase: boolean;
 }
 
 const initialState: IInitialState = {
@@ -20,6 +21,7 @@ const initialState: IInitialState = {
   englishWord: '',
   russianWord: '',
   russianFullWord: '',
+  increase: true,
 };
 
 const wordsSlice = createSlice({
@@ -47,6 +49,9 @@ const wordsSlice = createSlice({
     setRussianFullWord: (state, action: PayloadAction<string>) => {
       state.russianFullWord = action.payload;
     },
+    setIncrease: (state, action: PayloadAction<boolean>) => {
+      state.increase = action.payload;
+    },
   },
 });
 
@@ -64,6 +69,8 @@ export const selectRussianWord = (state: RootState): string =>
   state.wordsReducer.russianWord;
 export const selectRussianFullWord = (state: RootState): string =>
   state.wordsReducer.russianFullWord;
+export const selectIncrease = (state: RootState): boolean =>
+  state.wordsReducer.increase;
 
 export const {
   setAllWords,
@@ -72,6 +79,7 @@ export const {
   setUnlearnedWords,
   setEnglishWord,
   setRussianWord,
-  setRussianFullWord
+  setRussianFullWord,
+  setIncrease
 } = wordsSlice.actions;
 export default wordsSlice.reducer;
