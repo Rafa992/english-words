@@ -6,11 +6,13 @@ import {
 } from "@/redux/slices/wordsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { IWords } from "@/types/words.types";
+import useInitialError from "../error/useInitialError";
 
 export default function useUpdateWord() {
   const increase = useAppSelector(selectIncrease);
   const unlearnedWords = useAppSelector(selectUnlearnedWords);
   const dispatch = useAppDispatch();
+  const {initialError} = useInitialError();
 
   const updateWord = async (word: IWords) => {
     if (!increase) return word;
@@ -32,6 +34,7 @@ export default function useUpdateWord() {
       dispatch(setUnlearnedWords(newUnlearnedWords));
 
       const res = await axiosWithAuth.put("/words/edit-word", newWord);
+      initialError(true, '', 'success');
       return res.data;
     } catch (error) {
       console.log("error changing data word", error);

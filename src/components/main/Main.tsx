@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getProfile } from "@/services/getProfile.service";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { setUser } from "@/redux/slices/userSlice";
 import s from "./Main.module.scss";
 import CustomSnackbar from "../ui/customsComponents/CustomSnackbar";
 import {
@@ -13,10 +11,10 @@ import {
 } from "@/redux/slices/errorSlice";
 import PaletteModal from "../modals/palette-modal/PaletteModal";
 import { selectColor } from "@/redux/slices/colorSlice";
-import useGetAllWords from "@/hooks/words/useGetAllWords";
 import WordsItem from "../words/WordsItem";
 import InfoButton from "../info/InfoButton";
 import { selectAllWords } from "@/redux/slices/wordsSlice";
+import useProfile from "@/hooks/profile/useProfile";
 
 export default function Main() {
   const dispatch = useAppDispatch();
@@ -25,10 +23,10 @@ export default function Main() {
   const errorMessage = useAppSelector(selectErrorMessage);
   const severity = useAppSelector(selectSeverity);
   const words = useAppSelector(selectAllWords)
+  const {fetchProfile} = useProfile();
 
   const handleCloseSnackbar = () => dispatch(setErrorStatus(false));
   const color = useAppSelector(selectColor);
-  const {getAllWords} = useGetAllWords();
   const [updateCard, setUpdateCard] = useState(false);
 
   useEffect(() => {
@@ -36,14 +34,7 @@ export default function Main() {
   }, [color]);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const profile = await getProfile();
-      if (profile) {
-        dispatch(setUser(profile));
-        getAllWords();
-      }
-    };
-    fetchUser();
+    fetchProfile()
   }, []);
 
   return (

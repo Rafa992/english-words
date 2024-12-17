@@ -13,34 +13,16 @@ export const getAccessToken = () => {
 };
 
 export const saveTokenStorage = (accessToken: string, refreshToken: string) => {
-  // const domain = process.env.NODE_ENV === "production" ? "order-management-indol.vercel.app" : "localhost";
-
 
   Cookies.set(EnumTokens.ACCESS_TOKEN, accessToken, {
-    // domain: domain,
-    // sameSite: "none",
-    // secure: process.env.NODE_ENV === "production" ? true : false,
   });
   Cookies.set(EnumTokens.REFRESH_TOKEN, refreshToken, {
-    // domain: domain,
-    // sameSite: "none",
-    // secure: process.env.NODE_ENV === "production" ? true : false,
   });
 };
 
 export const removeFromStorage = () => {
-  // const domain = process.env.NODE_ENV === "production" ? "order-management-indol.vercel.app" : "localhost";
-
-  Cookies.remove(EnumTokens.ACCESS_TOKEN, {
-    // domain: domain,
-    // sameSite: "none",
-    // secure: process.env.NODE_ENV === "production" ? true : false,
-  });
-  Cookies.remove(EnumTokens.REFRESH_TOKEN, {
-    // domain: domain,
-    // sameSite: "none",
-    // secure: process.env.NODE_ENV === "production" ? true : false,
-  });
+  Cookies.remove(EnumTokens.ACCESS_TOKEN);
+  Cookies.remove(EnumTokens.REFRESH_TOKEN);
 };
 
 export const getNewTokens = async() => {
