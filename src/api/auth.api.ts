@@ -4,7 +4,7 @@ import { Login, LoginResponse, Register } from "../types/auth";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ 
-    baseUrl: "https://english-words-qqur.onrender.com/api/",
+    baseUrl: "https://english-words-api-3l2i.onrender.com/api/",
     // baseUrl: "http://localhost:4000/api/",
     // baseUrl: "/api/",
     // настройки добавления токена при запросах на энд-поинты не входящие в массив skipAuthEndpoints

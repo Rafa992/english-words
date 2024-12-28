@@ -41,6 +41,7 @@ const RegisterPage = () => {
         version: 'en-ru',
         currentRange: '1-100',
       }
+      
       const res = await register(user).unwrap();
       saveTokenStorage(res.accessToken, res.refreshToken);
       reset();

@@ -2,9 +2,9 @@ import TinderCard from "react-tinder-card";
 import {
   selectCurrentWord,
   selectShowTranslation,
-  selectUnlearnedWords,
   setShowTranslation,
   selectAllWords,
+  selectUpdateCard
 } from "@/redux/slices/wordsSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import React, { useEffect } from "react";
@@ -13,14 +13,9 @@ import { selectUser } from "@/redux/slices/userSlice";
 import s from "./WordsItem.module.scss";
 import useCreateColor from "@/hooks/words/useCreateColor";
 import useOnSwipe from "@/hooks/words/useOnSwipe";
-import { setIncrease } from "@/redux/slices/wordsSlice"
+import { setIncrease } from "@/redux/slices/wordsSlice";
 
-interface IProps {
-  updateCard: boolean;
-  setUpdateCard: (v: boolean)=> void;
-}
-
-export default function WordsItem({updateCard, setUpdateCard}:IProps) {
+export default function WordsItem() {
 
   const dispatch = useAppDispatch();
   const { randomWord } = useRandomWord();
@@ -28,6 +23,7 @@ export default function WordsItem({updateCard, setUpdateCard}:IProps) {
   const user = useAppSelector(selectUser);
   const allWords = useAppSelector(selectAllWords);
   const {createColor} = useCreateColor();
+  const updateCard = useAppSelector(selectUpdateCard)
 
   useEffect(() => {
    randomWord();
@@ -35,7 +31,7 @@ export default function WordsItem({updateCard, setUpdateCard}:IProps) {
 
   const currentWord = useAppSelector(selectCurrentWord);
 
-  const {onSwipe} = useOnSwipe({updateCard, setUpdateCard});
+  const {onSwipe} = useOnSwipe();
 
   useEffect(() => {
     dispatch(setIncrease(true))
@@ -57,12 +53,14 @@ export default function WordsItem({updateCard, setUpdateCard}:IProps) {
               <div style={style} className={s.wordCard_text}>
                 <p>{currentWord.ruFull}</p>
                 <span>{currentWord.repetitions}</span>
+                <span>{currentWord.order}</span>
               </div>
             ) : (
               <div style={style} className={s.wordCard_text}>
                 <p>{currentWord.en}</p>
                 <p>{currentWord.transcription}</p>
                 <span>{currentWord.repetitions}</span>
+                <span>{currentWord.order}</span>
               </div>
             )
           }
@@ -75,12 +73,14 @@ export default function WordsItem({updateCard, setUpdateCard}:IProps) {
               <div style={style} className={s.wordCard_text}>
                 <p>{currentWord.ruFull}</p>
                 <span>{currentWord.repetitions}</span>
+                <span>{currentWord.order}</span>
               </div>
             ) : (
               <div style={style} className={s.wordCard_text}>
                 <p>{currentWord.en}</p>
                 <p>{currentWord.transcription}</p>
                 <span>{currentWord.repetitions}</span>
+                <span>{currentWord.order}</span>
               </div>
             )
           }
@@ -94,11 +94,13 @@ export default function WordsItem({updateCard, setUpdateCard}:IProps) {
                 <p>{currentWord.en}</p>
                 <p>{currentWord.transcription}</p>
                 <span>{currentWord.repetitions}</span>
+                <span>{currentWord.order}</span>
               </div>
               ):(
               <div style={style} className={s.wordCard_text}>
                 <p>{currentWord.ruFull}</p>
                 <span>{currentWord.repetitions}</span>
+                <span>{currentWord.order}</span>
               </div>
             )
           }

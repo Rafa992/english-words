@@ -1,27 +1,29 @@
 import { axiosWithAuth } from '@/api/interceptors'
 import { selectUser, setUser } from '@/redux/slices/userSlice'
+import { setCurrentRange } from '@/redux/slices/wordsSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store'
 import useInitialError from '../error/useInitialError';
 
-export default function useVersion() {
+export default function useCurrentRange() {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const {initialError} = useInitialError();
 
-  const version = async()=> {
+  const changeCurrentRange = async(range: string)=> {
+    dispatch(setCurrentRange(range))
     try {
       const profile = {
         ...user,
-        version: user.version === 'en-ru' ? 'ru-en' : 'en-ru',
+        currentRange: range,
       }
       const res = await axiosWithAuth.put('/user/profile', profile)
-      dispatch(setUser(res.data))
-      initialError(true, 'версия успешно изменена', 'success');
+      initialError(true, 'диапазон успешно изменен', 'success');
     } catch (error) {
-      initialError(true, 'ошибка изменения версии', 'error');
+      initialError(true, 'Ошибка изменения диапазона', 'error');
+      throw new Error('error while to change current range')
     }
   }
 
-  return {version}
+  return {changeCurrentRange}
 }

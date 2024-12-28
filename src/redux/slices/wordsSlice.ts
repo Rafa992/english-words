@@ -1,7 +1,6 @@
 import { IWords } from "@/types/words.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
 interface IInitialState {
   allWords: IWords[];
   currentWord: IWords;
@@ -10,6 +9,7 @@ interface IInitialState {
   increase: boolean;
   showTranslation: boolean;
   currentRange: string;
+  updateCard: boolean;
 }
 
 const initialState: IInitialState = {
@@ -19,7 +19,8 @@ const initialState: IInitialState = {
   unlearnedWords: [],
   increase: true,
   showTranslation: false,
-  currentRange: '',
+  currentRange: "",
+  updateCard: false,
 };
 
 const wordsSlice = createSlice({
@@ -47,6 +48,9 @@ const wordsSlice = createSlice({
     setShowTranslation: (state, action: PayloadAction<boolean>) => {
       state.showTranslation = action.payload;
     },
+    setUpdateCard: (state, action: PayloadAction<boolean>) => {
+      state.updateCard = action.payload;
+    },
   },
 });
 
@@ -64,6 +68,8 @@ export const selectShowTranslation = (state: RootState): boolean =>
   state.wordsReducer.showTranslation;
 export const selectCurrentRange = (state: RootState): string =>
   state.wordsReducer.currentRange;
+export const selectUpdateCard = (state: RootState): boolean =>
+  state.wordsReducer.updateCard;
 
 export const {
   setAllWords,
@@ -72,6 +78,7 @@ export const {
   setUnlearnedWords,
   setIncrease,
   setShowTranslation,
-  setCurrentRange
+  setCurrentRange,
+  setUpdateCard,
 } = wordsSlice.actions;
 export default wordsSlice.reducer;

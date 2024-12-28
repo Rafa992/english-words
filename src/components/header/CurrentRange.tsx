@@ -14,14 +14,17 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import {range} from '@/data/CurrentRange';
+import {range} from '@/data/currentRange';
+import useCurrentRange from "@/hooks/profile/useCurrentRange";
 
 export default function CurrentRange() {
   const dispatch = useAppDispatch();
   const currentRange = useAppSelector(selectCurrentRange)
 
+  const {changeCurrentRange} = useCurrentRange();
+
   const handleChange = (event: SelectChangeEvent) => {
-    dispatch(setCurrentRange(event.target.value));
+    changeCurrentRange(event.target.value);
   };
   return (
     <div>

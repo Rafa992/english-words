@@ -15,10 +15,10 @@ import WordsItem from "../words/WordsItem";
 import InfoButton from "../info/InfoButton";
 import { selectAllWords } from "@/redux/slices/wordsSlice";
 import useProfile from "@/hooks/profile/useProfile";
+import NextButton from "../next-button/nextButton";
 
 export default function Main() {
   const dispatch = useAppDispatch();
-
   const errorStatus = useAppSelector(selectErrorStatus);
   const errorMessage = useAppSelector(selectErrorMessage);
   const severity = useAppSelector(selectSeverity);
@@ -27,7 +27,6 @@ export default function Main() {
 
   const handleCloseSnackbar = () => dispatch(setErrorStatus(false));
   const color = useAppSelector(selectColor);
-  const [updateCard, setUpdateCard] = useState(false);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--baseColor", color);
@@ -40,7 +39,7 @@ export default function Main() {
   return (
     <main className={`${s.main}`}>
       <PaletteModal />
-        <WordsItem updateCard={updateCard} setUpdateCard={setUpdateCard}/>
+        <WordsItem />
       <CustomSnackbar
         message={errorMessage}
         severity={severity}
@@ -51,7 +50,10 @@ export default function Main() {
       />
       {
         words && (
+          <>
           <InfoButton/>
+          <NextButton/>
+          </>
         )
       }
     </main>

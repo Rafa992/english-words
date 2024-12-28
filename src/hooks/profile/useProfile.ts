@@ -1,4 +1,5 @@
 import { setUser } from '@/redux/slices/userSlice';
+import { setCurrentRange } from '@/redux/slices/wordsSlice';
 import { useAppDispatch } from '@/redux/store';
 import { getProfile } from '@/services/getProfile.service';
 import useInitialError from '../error/useInitialError';
@@ -15,6 +16,7 @@ export default function useProfile() {
             const profile = await getProfile();
             if (profile) {
               dispatch(setUser(profile));
+              dispatch(setCurrentRange(profile.currentRange));
               getAllWords();
               initialError(true, 'Профиль успешно загружен', 'success');
             }
