@@ -14,6 +14,7 @@ import { useState } from "react";
 import { selectAllWords, selectLearnedWords, selectUnlearnedWords } from "@/redux/slices/wordsSlice";
 import Laterality from "@/components/laterality/Laterality";
 import Version from "@/components/version/Version";
+import CurrentRange from "./CurrentRange";
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -47,6 +48,7 @@ export default function Header() {
             <span>Не выученные - </span>
             <span>{unlearnedWords.length}</span>
           </p>
+          <CurrentRange/>
         </div>
         {settings && (
           <div

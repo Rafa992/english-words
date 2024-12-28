@@ -84,12 +84,12 @@ const LoginPage = () => {
           {!isLoading ? "Send" : ""}
         </Button>
       </Form>
-      {/* <p className={s.auth_link}>
+      <p className={s.auth_link}>
         <span className={s.auth_link_question}>If you don't have an account yet?</span>
         <span className="text-blue-600 underline">
           <Link href="/auth/register">Sign up</Link>
         </span>
-      </p> */}
+      </p>
       <CustomSnackbar
         message={errorMessage}
         severity={severity}

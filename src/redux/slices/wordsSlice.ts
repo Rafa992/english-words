@@ -9,6 +9,7 @@ interface IInitialState {
   unlearnedWords: IWords[];
   increase: boolean;
   showTranslation: boolean;
+  currentRange: string;
 }
 
 const initialState: IInitialState = {
@@ -18,6 +19,7 @@ const initialState: IInitialState = {
   unlearnedWords: [],
   increase: true,
   showTranslation: false,
+  currentRange: '',
 };
 
 const wordsSlice = createSlice({
@@ -26,6 +28,9 @@ const wordsSlice = createSlice({
   reducers: {
     setAllWords: (state, action: PayloadAction<IWords[]>) => {
       state.allWords = action.payload;
+    },
+    setCurrentRange: (state, action: PayloadAction<string>) => {
+      state.currentRange = action.payload;
     },
     setCurrentWord: (state, action: PayloadAction<IWords>) => {
       state.currentWord = action.payload;
@@ -57,6 +62,8 @@ export const selectIncrease = (state: RootState): boolean =>
   state.wordsReducer.increase;
 export const selectShowTranslation = (state: RootState): boolean =>
   state.wordsReducer.showTranslation;
+export const selectCurrentRange = (state: RootState): string =>
+  state.wordsReducer.currentRange;
 
 export const {
   setAllWords,
@@ -64,6 +71,7 @@ export const {
   setLearnedWords,
   setUnlearnedWords,
   setIncrease,
-  setShowTranslation
+  setShowTranslation,
+  setCurrentRange
 } = wordsSlice.actions;
 export default wordsSlice.reducer;

@@ -3,6 +3,7 @@ export interface Register {
     password: string;
     name: string;
     laterality: string;
+    currentRange: string;
     version: string;
 }
 
