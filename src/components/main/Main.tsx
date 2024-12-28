@@ -15,7 +15,7 @@ import WordsItem from "../words/WordsItem";
 import InfoButton from "../info/InfoButton";
 import { selectAllWords } from "@/redux/slices/wordsSlice";
 import useProfile from "@/hooks/profile/useProfile";
-import NextButton from "../next-button/nextButton";
+import NextButton from "../next-button/NextButton";
 
 export default function Main() {
   const dispatch = useAppDispatch();
