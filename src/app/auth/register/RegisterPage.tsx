@@ -39,7 +39,7 @@ const RegisterPage = () => {
         ...data, 
         laterality: 'right',
         version: 'en-ru',
-        currentRange: '1-100',
+        currentRange: '1-10',
       }
       
       const res = await register(user).unwrap();

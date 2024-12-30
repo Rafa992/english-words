@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import {range} from '@/data/currentRange';
+import {ThoroughRange} from '@/data/thoroughCurrentRange';
 import useCurrentRange from "@/hooks/profile/useCurrentRange";
 
 export default function CurrentRange() {
@@ -59,7 +60,7 @@ export default function CurrentRange() {
             }
           >
             {
-              range.map((item, i) => (
+              ThoroughRange.map((item, i) => (
                 <MenuItem key={i} value={item}>{item}</MenuItem>
               ))
             }
