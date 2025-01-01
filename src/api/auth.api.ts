@@ -3,7 +3,7 @@ import { Login, LoginResponse, Register } from "../types/auth";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ 
+  baseQuery: fetchBaseQuery({
     baseUrl: "https://english-words-api-3l2i.onrender.com/api/",
     // baseUrl: "http://localhost:4000/api/",
     // baseUrl: "/api/",
@@ -17,7 +17,7 @@ export const authApi = createApi({
     //         }
     //     }
     // }
-    }),
+  }),
   endpoints: (builder) => ({
     register: builder.mutation<LoginResponse, Register>({
       query: (newUser) => ({
@@ -42,4 +42,5 @@ export const authApi = createApi({
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, /*useProfileQuery*/ } = authApi;
+export const { useRegisterMutation, useLoginMutation /*useProfileQuery*/ } =
+  authApi;

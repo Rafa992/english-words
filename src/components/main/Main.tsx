@@ -16,6 +16,8 @@ import InfoButton from "../info/InfoButton";
 import { selectAllWords } from "@/redux/slices/wordsSlice";
 import useProfile from "@/hooks/profile/useProfile";
 import NextButton from "../next-button/NextButton";
+import ConfirmModal from "../modals/confirm-modal/ConfirmModal";
+import { selectOpenConfirmModal } from "@/redux/slices/modalSlice";
 
 export default function Main() {
   const dispatch = useAppDispatch();
@@ -27,6 +29,7 @@ export default function Main() {
 
   const handleCloseSnackbar = () => dispatch(setErrorStatus(false));
   const color = useAppSelector(selectColor);
+  const openConfirmModal = useAppSelector(selectOpenConfirmModal);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--baseColor", color);
@@ -48,6 +51,11 @@ export default function Main() {
         autoHideDuration={3000}
         position={{ vertical: "bottom", horizontal: "right" }}
       />
+      {
+        openConfirmModal && (
+          <ConfirmModal/>
+        )
+      }
       {
         words && (
           <>

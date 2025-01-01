@@ -34,7 +34,7 @@ export default function useUpdateWord() {
       dispatch(setUnlearnedWords(newUnlearnedWords));
 
       const res = await axiosWithAuth.put("/words/edit-word", newWord);
-      initialError(true, '', 'success');
+      initialError(true, '', 'success', 1000);
       return res.data;
     } catch (error) {
       console.log("error changing data word", error);

@@ -1,5 +1,5 @@
 "use client";
-import { setPaletteModal } from "@/redux/slices/modalSlice";
+import { setOpenConfirmModal, setPaletteModal } from "@/redux/slices/modalSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { removeFromStorage } from "@/services/auth-token.service";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
@@ -15,6 +15,7 @@ import { selectAllWords, selectLearnedWords, selectUnlearnedWords } from "@/redu
 import Laterality from "@/components/laterality/Laterality";
 import Version from "@/components/version/Version";
 import CurrentRange from "./CurrentRange";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -28,6 +29,10 @@ export default function Header() {
   const logout = () => {
     push(DASHBOARD_PAGES.LOGIN);
     removeFromStorage();
+  };
+
+  const rest = () => {
+    dispatch(setOpenConfirmModal(true))
   };
 
   const openSetting = () => {
@@ -74,6 +79,9 @@ export default function Header() {
           </IconButton>
           
           <Version />
+          <IconButton title="Сбросить прогресс" onClick={rest}>
+            <RestartAltIcon className={s.header_buttons_icon} />
+          </IconButton>
           <IconButton title="Выйти из аккаунта" onClick={logout}>
             <LogoutIcon className={s.header_buttons_icon} />
           </IconButton>
