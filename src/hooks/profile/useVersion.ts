@@ -1,4 +1,5 @@
 import { axiosWithAuth } from '@/api/interceptors'
+import { setSettings } from '@/redux/slices/modalSlice';
 import { selectUser, setUser } from '@/redux/slices/userSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
 import useInitialError from '../error/useInitialError';
@@ -17,7 +18,8 @@ export default function useVersion() {
       }
       const res = await axiosWithAuth.put('/user/profile', profile)
       dispatch(setUser(res.data))
-      initialError(true, 'версия успешно изменена', 'success');
+      dispatch(setSettings(false))
+      initialError(true, 'версия успешно изменена', 'success', 2000);
     } catch (error) {
       initialError(true, 'ошибка изменения версии', 'error');
     }

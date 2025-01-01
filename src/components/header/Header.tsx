@@ -15,6 +15,7 @@ import Laterality from "@/components/laterality/Laterality";
 import Version from "@/components/version/Version";
 import CurrentRange from "./CurrentRange";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { selectUser } from "@/redux/slices/userSlice";
 
 export default function Header() {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ export default function Header() {
   const words = useAppSelector(selectAllWords)
   const learnedWords = useAppSelector(selectLearnedWords)
   const unlearnedWords = useAppSelector(selectUnlearnedWords)
+  const user = useAppSelector(selectUser);
 
   const logout = () => {
     push(DASHBOARD_PAGES.LOGIN);
@@ -37,6 +39,11 @@ export default function Header() {
   const openSetting = () => {
     dispatch(setSettings(true));
   };
+
+  const style = user.laterality === "right" ? { order: "1" } : { order: "-1" }
+  const style2 = !settings && user.laterality === "right"
+    ? {right: '-100%', left: 'unset'}
+    : {left: '-100%', right: 'unset'}
 
   return (
     <header className={s.header}>
@@ -60,13 +67,18 @@ export default function Header() {
             onClick={() => dispatch(setSettings(false))}
           ></div>
         )}
-        <IconButton className={s.header_settings} onClick={() => openSetting()}>
+        <IconButton style={style} className={s.header_settings} onClick={() => openSetting()}>
           <TuneIcon className={s.header_buttons_icon} />
         </IconButton>
         <div
-          className={`${s.header_buttons} ${
-            settings && s.header_buttons_active
-          }`}
+        style={style2}
+          className={`
+          ${s.header_buttons} 
+          ${settings && user.laterality === "right" 
+          ? s.header_buttons_right 
+          : settings && user.laterality === "left"
+          ? s.header_buttons_left : ''
+        }`}
         >
           <ThemeSwitch />
           <Laterality/>
