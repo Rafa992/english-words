@@ -7,6 +7,7 @@ import {
   selectErrorMessage,
   selectErrorStatus,
   selectSeverity,
+  selectTime,
   setErrorStatus,
 } from "@/redux/slices/errorSlice";
 import PaletteModal from "../modals/palette-modal/PaletteModal";
@@ -18,6 +19,8 @@ import useProfile from "@/hooks/profile/useProfile";
 import NextButton from "../next-button/NextButton";
 import ConfirmModal from "../modals/confirm-modal/ConfirmModal";
 import { selectOpenConfirmModal } from "@/redux/slices/modalSlice";
+import Loader from "../ui/loader/Loader";
+import { selectLoading } from "@/redux/slices/loaderSlice";
 
 export default function Main() {
   const dispatch = useAppDispatch();
@@ -30,6 +33,8 @@ export default function Main() {
   const handleCloseSnackbar = () => dispatch(setErrorStatus(false));
   const color = useAppSelector(selectColor);
   const openConfirmModal = useAppSelector(selectOpenConfirmModal);
+  const time = useAppSelector(selectTime);
+  const loading = useAppSelector(selectLoading);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--baseColor", color);
@@ -42,13 +47,17 @@ export default function Main() {
   return (
     <main className={`${s.main}`}>
       <PaletteModal />
-        <WordsItem />
+      {
+         !loading && (
+           <WordsItem />
+         )
+      }
       <CustomSnackbar
         message={errorMessage}
         severity={severity}
         open={errorStatus}
         onClose={handleCloseSnackbar}
-        autoHideDuration={3000}
+        autoHideDuration={time}
         position={{ vertical: "bottom", horizontal: "right" }}
       />
       {
@@ -57,7 +66,12 @@ export default function Main() {
         )
       }
       {
-        words && (
+        loading && (
+          <Loader/>
+        )
+      }
+      {
+        words && !loading && (
           <>
           <InfoButton/>
           <NextButton/>

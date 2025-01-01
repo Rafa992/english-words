@@ -1,5 +1,5 @@
 "use client";
-import { setOpenConfirmModal, setPaletteModal } from "@/redux/slices/modalSlice";
+import { selectSettings, setOpenConfirmModal, setPaletteModal, setSettings } from "@/redux/slices/modalSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { removeFromStorage } from "@/services/auth-token.service";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
@@ -10,7 +10,6 @@ import ThemeSwitch from "./ThemeSwitch";
 import { useRouter } from "next/navigation";
 import { DASHBOARD_PAGES } from "@/config/pages-url.config";
 import TuneIcon from "@mui/icons-material/Tune";
-import { useState } from "react";
 import { selectAllWords, selectLearnedWords, selectUnlearnedWords } from "@/redux/slices/wordsSlice";
 import Laterality from "@/components/laterality/Laterality";
 import Version from "@/components/version/Version";
@@ -20,7 +19,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 export default function Header() {
   const dispatch = useAppDispatch();
   const { push } = useRouter();
-  const [settings, setSettings] = useState(false);
+  const settings = useAppSelector(selectSettings)
 
   const words = useAppSelector(selectAllWords)
   const learnedWords = useAppSelector(selectLearnedWords)
@@ -36,7 +35,7 @@ export default function Header() {
   };
 
   const openSetting = () => {
-    setSettings(true);
+    dispatch(setSettings(true));
   };
 
   return (
@@ -58,7 +57,7 @@ export default function Header() {
         {settings && (
           <div
             className={s.header_bg_close}
-            onClick={() => setSettings(false)}
+            onClick={() => dispatch(setSettings(false))}
           ></div>
         )}
         <IconButton className={s.header_settings} onClick={() => openSetting()}>
@@ -85,7 +84,6 @@ export default function Header() {
           <IconButton title="Выйти из аккаунта" onClick={logout}>
             <LogoutIcon className={s.header_buttons_icon} />
           </IconButton>
-          
         </div>
       </div>
     </header>

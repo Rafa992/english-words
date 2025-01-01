@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 import s from "./ConfirmModal.module.scss";
-import { setOpenConfirmModal } from "@/redux/slices/modalSlice";
+import { setOpenConfirmModal, setSettings } from "@/redux/slices/modalSlice";
 import { useAppDispatch } from "@/redux/store";
 import useRestartWords from "@/hooks/words/useRestartWords";
+import { setLoading } from "@/redux/slices/loaderSlice";
 
 const ConfirmButtons = () => {
   const dispatch = useAppDispatch();
@@ -11,6 +12,8 @@ const ConfirmButtons = () => {
   const handleDeleteOrder = () => {
     restartWords();
     dispatch(setOpenConfirmModal(false));
+    dispatch(setLoading(true));
+    dispatch(setSettings(false));
   };
 
   return (
