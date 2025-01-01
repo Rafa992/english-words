@@ -17,7 +17,8 @@ export default function useRestartWords() {
       dispatch(setLoading(false));
       initialError(true, 'Прогресс слов успешно обновлен', 'success', 1500)
     } catch (error) {
-        initialError(true, 'error while restart words', 'error')
+      dispatch(setLoading(false));
+      initialError(true, 'error while restart words', 'error')
     }
   };
 
